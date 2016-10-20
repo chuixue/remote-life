@@ -11,7 +11,9 @@
 #include <ctime>
 #include <vector>
 
-#include <boost/algorithm/string.hpp>  
+//#include <boost/algorithm/string.hpp>  
+#include <boost/regex.hpp>
+#include <boost/algorithm/string/regex.hpp>  
 
 using namespace std;
 using namespace boost;
@@ -22,6 +24,7 @@ int CreateCtronl(HWND hwnd, LPARAM lParam);
 
 void btn_click();
 
+LONG NeedRemovingEditCtrlText(LPCTSTR pszText);
 string GetEditText(HWND hwnd);
 tm GetLocalTime();
 string GetLocalTimeS();
@@ -33,6 +36,6 @@ void MsgBox(string txt);
 void MsgBox(int number);
 void MsgBox(HWND number);
 
-#define MAX_EDIT_LENGTH 29800
+#define MAX_EDIT_LENGTH 29000
 
 

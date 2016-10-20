@@ -109,39 +109,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	
 	return 0;
 }
-void btn_click()
-{	
-	//MsgBox(m_hwnd);
-	//MsgBox(Edit_Debug);
-	//MsgBox(x);
-
-	vector<string> strs;
-	string line = "12345\r\n\r\nHello\r\nOK\r\n";
-	line = "sndjdbsssndfjwnsssfejnesssnn";
-	boost::split(strs, line, boost::is_any_of("sss"));
-	
-	for (size_t i = 0; i < strs.size(); i++)
-		Print(strs[i]);
-		//cout << strs[i] << endl;
-	//Print(line);
-	Print("Finish");
-	Print("Finish");
-	Print("Finish");
-	return;
-	long l;
-	for (int i = 0; i < 1000; i++)
-	{
-		Print("int SetScrollPos(", TRUE);
-		l = GetWindowTextLength(Edit_Debug);
-		Print(l);
-		//32767
-	}
-
-	
-}
-
-
-
 int CreateCtronl(HWND hWnd, LPARAM lParam)
 {
 	Login_Button = CreateWindow(TEXT("button"),//必须为：button   
@@ -157,7 +124,7 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 		550, 45, 75, 25,            //x,y,宽,高  
 		hWnd, (HMENU)IDB_BUTTON_RESET,//绑定按钮ID  
 		((LPCREATESTRUCT)lParam)->hInstance, NULL);
-	
+
 	Edit_Debug = CreateWindow("edit", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOVSCROLL,
 		10, 120, 613, 200, hWnd, (HMENU)IDE_EDIT_DEBUG, NULL, NULL);
 
@@ -165,7 +132,50 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 	return 0;
 }
 
+void btn_click()
+{	
+	//MsgBox(m_hwnd);
+	//MsgBox(Edit_Debug);
+	//MsgBox(x);
 
+	string txt = "helsdfghjkkjre";
+	vector<string> lines;
+	string line = "12345\r\n\r\n12345Hello\r\nO1234512345K\r\nabcde";
+	//Print(line);
+	
+	//return;
+	long l;
+	for (int i = 0; i < 200; i++)
+	{
+		Print("int SetScrollPos(", TRUE);
+		l = GetWindowTextLength(Edit_Debug);
+		Print(l);
+		//32767
+	}
+	//*/
+	
+}
+
+LONG NeedRemovingEditCtrlText(LPCTSTR txt)
+{
+	HWND hWndEdit = Edit_Debug;
+	long nMaxLength = (long)SendMessage(hWndEdit, EM_GETLIMITTEXT, 0, 0);
+	string text_old = GetEditText(hWndEdit);
+	vector<string> lines;
+	split_regex(lines, text_old, regex("\r\n"));
+	int lCount = lines.size(), lineL = 0;
+	long len = GetWindowTextLength(hWndEdit) + _tcslen(txt) + 2, lLine = 0;
+	while (1)
+	{
+		if (len<nMaxLength)break;
+		if (lineL >= lCount)break;
+		long _len = _tcslen(lines[lineL].c_str()) + 2;
+		len -= _len;
+		lLine += _len;
+		lineL++;
+	}
+	return lLine;
+}
 string GetEditText(HWND hwnd)
 {
 	char* txt;
@@ -200,33 +210,22 @@ string GetLocalTimeS()
 
 string Print(string str, bool use_date)
 {
-	/*
-	string txt = GetEditText(Edit_Debug);
-	txt += str + (use_date ? ("\t" + GetLocalTimeS()) : "");
-	txt += "\r\n";
-	SetDlgItemText((HWND)m_hwnd, IDE_EDIT_DEBUG, txt.c_str());
-	int x, y;
-	GetScrollRange(Edit_Debug, SB_VERT, &x, &y);
-	SetScrollPos(Edit_Debug, SB_VERT, y, FALSE);
-	
-	int len = GetWindowTextLength(Edit_Debug);
 	string newLine = str + (use_date ? ("\t" + GetLocalTimeS()) : "");
-
-	if (MAX_EDIT_LENGTH< (len + newLine.length))txt = str
-*/
-	//string txt = 
-
-	string newLine = str + (use_date ? ("\t" + GetLocalTimeS()) : "");
+	long lLine = NeedRemovingEditCtrlText(newLine.c_str());//检测是否需要清除部分内容
+	if (lLine > 0)
+	{
+		SendMessage(Edit_Debug, EM_SETSEL, (WPARAM)0, (LPARAM)(lLine));
+		SendMessage(Edit_Debug, EM_REPLACESEL, (WPARAM)FALSE, NULL);
+	}
 	string txt = newLine;
 	txt += "\r\n";
 	int len = GetWindowTextLength(Edit_Debug);
-	
-
 	SetFocus(Edit_Debug); // set focus	
 	SendMessageA(Edit_Debug, EM_SETSEL, (WPARAM)len, (LPARAM)len);
 	SendMessageA(Edit_Debug, EM_REPLACESEL, 0, (LPARAM)txt.c_str());
 	return str;
 }
+
 string Print(int number, bool use_date)
 {
 	return Print(Common::str(number), use_date);
