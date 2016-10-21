@@ -1,15 +1,17 @@
 #pragma once
 
 #include "resource.h"
-#include "public.h"
-
-#include "winmain.h"
-
 #include <string>
-
 #include <sstream>
 #include <ctime>
 #include <vector>
+
+
+#include "public.h"
+#include "winmain.h"
+#include "debug.h"
+
+
 
 //#include <boost/algorithm/string.hpp>  
 #include <boost/regex.hpp>
@@ -24,10 +26,6 @@ int CreateCtronl(HWND hwnd, LPARAM lParam);
 
 void btn_click();
 
-LONG NeedRemovingEditCtrlText(LPCTSTR pszText);
-string GetEditText(HWND hwnd);
-tm GetLocalTime();
-string GetLocalTimeS();
 
 
 string Print(string str, bool use_date = FALSE);
@@ -37,5 +35,7 @@ void MsgBox(int number);
 void MsgBox(HWND number);
 
 #define MAX_EDIT_LENGTH 29000
+
+//Debug dg;
 
 

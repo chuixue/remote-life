@@ -69,4 +69,37 @@ CHAR* Common::GetLpcstrByStr(string txt)
 	return lpstr;
 }
 
+//----------------------------------------GetLocalTime-----------------------------------------
+tm Common::GetLocalTime()
+{
+	string txt;
+	stringstream sstemp;
+	time_t rawtime;
+	struct tm _tm;
+	time(&rawtime);
+	localtime_s(&_tm, &rawtime);
+	return _tm;
+}
+string Common::GetLocalTimeS()
+{
+	struct tm _tm = GetLocalTime();
+	string txtD, txtT;
+	stringstream sstemp;
+	sstemp << _tm.tm_year + 1900 << "-" << _tm.tm_mon + 1 << "-" << _tm.tm_mday << " ";
+	sstemp << _tm.tm_hour << ":" << _tm.tm_min << ":" << _tm.tm_sec;
+	sstemp >> txtD;
+	sstemp >> txtT;
+	return txtD + " " + txtT;
+}
 
+//----------------------------------------GetEditText-----------------------------------------
+string Common::GetEditText(HWND hwnd)
+{
+	char* txt;
+	long len;
+	len = GetWindowTextLength(hwnd);
+	txt = new char[len + 1];
+	txt[len] = '\0';
+	GetWindowText(hwnd, txt, len + 1);
+	return txt;
+}

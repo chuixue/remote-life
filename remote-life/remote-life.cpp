@@ -128,9 +128,13 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 	Edit_Debug = CreateWindow("edit", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOVSCROLL,
 		10, 120, 613, 200, hWnd, (HMENU)IDE_EDIT_DEBUG, NULL, NULL);
 
+	//综合调试类
+	Debug dg = Debug();
 
 	return 0;
 }
+
+
 
 void btn_click()
 {	
@@ -145,7 +149,7 @@ void btn_click()
 	
 	//return;
 	long l;
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 800; i++)
 	{
 		Print("int SetScrollPos(", TRUE);
 		l = GetWindowTextLength(Edit_Debug);
@@ -153,63 +157,27 @@ void btn_click()
 		//32767
 	}
 	//*/
+	DWORD dwThreadID = 0;
+	//HANDLE handleFirst = CreateThread(NULL, 0, ThreadFuncEdit, 0, 0, &dwThreadID);
 	
+	//CreateThread();
+	//CloseHandle()
+	
+	//DWORD dwThreadID = 0;
+	//HANDLE handleFirst = CreateThread(NULL, 0, ThreadFuncFirst, 0, 0, &dwThreadID);
+
+
 }
 
-LONG NeedRemovingEditCtrlText(LPCTSTR txt)
-{
-	HWND hWndEdit = Edit_Debug;
-	long nMaxLength = (long)SendMessage(hWndEdit, EM_GETLIMITTEXT, 0, 0);
-	string text_old = GetEditText(hWndEdit);
-	vector<string> lines;
-	split_regex(lines, text_old, regex("\r\n"));
-	int lCount = lines.size(), lineL = 0;
-	long len = GetWindowTextLength(hWndEdit) + _tcslen(txt) + 2, lLine = 0;
-	while (1)
-	{
-		if (len<nMaxLength)break;
-		if (lineL >= lCount)break;
-		long _len = _tcslen(lines[lineL].c_str()) + 2;
-		len -= _len;
-		lLine += _len;
-		lineL++;
-	}
-	return lLine;
-}
-string GetEditText(HWND hwnd)
-{
-	char* txt;
-	long len;
-	len = GetWindowTextLength(Edit_Debug);
-	txt = new char[len + 1];
-	txt[len] = '\0';
-	GetWindowText(Edit_Debug, txt, len + 1);
-	return txt;
-}
-tm GetLocalTime()
-{
-	string txt;
-	stringstream sstemp;
-	time_t rawtime;
-	struct tm _tm;
-	time(&rawtime);
-	localtime_s(&_tm, &rawtime);
-	return _tm;
-}
-string GetLocalTimeS()
-{
-	struct tm _tm = GetLocalTime();
-	string txtD, txtT;
-	stringstream sstemp;
-	sstemp << _tm.tm_year + 1900 << "-" << _tm.tm_mon + 1 << "-" << _tm.tm_mday << " ";
-	sstemp << _tm.tm_hour << ":" << _tm.tm_min << ":" << _tm.tm_sec;
-	sstemp >> txtD;
-	sstemp >> txtT;
-	return txtD + " " + txtT;
-}
+
+
+
+
 
 string Print(string str, bool use_date)
 {
+	return "";
+	/*
 	string newLine = str + (use_date ? ("\t" + GetLocalTimeS()) : "");
 	long lLine = NeedRemovingEditCtrlText(newLine.c_str());//检测是否需要清除部分内容
 	if (lLine > 0)
@@ -224,6 +192,7 @@ string Print(string str, bool use_date)
 	SendMessageA(Edit_Debug, EM_SETSEL, (WPARAM)len, (LPARAM)len);
 	SendMessageA(Edit_Debug, EM_REPLACESEL, 0, (LPARAM)txt.c_str());
 	return str;
+	*/
 }
 
 string Print(int number, bool use_date)

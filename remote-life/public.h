@@ -1,9 +1,9 @@
 #pragma once
 
+#include "stdafx.h"
 #include <string>
 #include <sstream>
-#include "stdafx.h"
-
+#include <ctime>
 
 
 using namespace std;
@@ -29,7 +29,9 @@ public:
 	static CHAR* Common::toLPCSTR(HWND number);
 
 	static CHAR* Common::GetLpcstrByStr(string txt);
-
+	static string GetEditText(HWND hwnd);
+	static tm GetLocalTime();
+	static string GetLocalTimeS();
 
 private:
 

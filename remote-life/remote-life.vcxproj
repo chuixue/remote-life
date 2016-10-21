@@ -82,6 +82,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="debug.h" />
     <ClInclude Include="public.h" />
     <ClInclude Include="remote-life.h" />
     <ClInclude Include="Resource.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="winmain.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="debug.cpp" />
     <ClCompile Include="public.cpp" />
     <ClCompile Include="remote-life.cpp" />
     <ClCompile Include="stdafx.cpp">
