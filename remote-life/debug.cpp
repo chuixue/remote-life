@@ -19,7 +19,7 @@ string Debug::Print(string str, bool use_date)
 {
 	HWND Edit_Debug = this->m_hwnd_edit;
 	string newLine = str + (use_date ? ("\t" + Common::GetLocalTimeS()) : "");
-	long lLine = NeedRemovingEditCtrlText(newLine.c_str());//检测是否需要清除部分内容
+	long lLine = NeedRemovingEditText(newLine.c_str());//检测是否需要清除部分内容
 	if (lLine > 0)
 	{
 		SendMessage(Edit_Debug, EM_SETSEL, (WPARAM)0, (LPARAM)(lLine));
@@ -48,12 +48,10 @@ DWORD WINAPI ThreadFuncFirst(LPVOID param)
 
 
 
-
 LONG Debug::NeedRemovingEditCtrlText(LPCTSTR txt, HWND Edit_Debug)
 {
-	if (!Edit_Debug)Edit_Debug = this->m_hwnd_edit;
 	long nMaxLength = (long)SendMessage(Edit_Debug, EM_GETLIMITTEXT, 0, 0);
-	string text_old = GetEditText(Edit_Debug);
+	string text_old = Common::GetEditText(Edit_Debug);
 	vector<string> lines;
 	split_regex(lines, text_old, regex("\r\n"));
 	int lCount = lines.size(), lineL = 0;
@@ -68,6 +66,11 @@ LONG Debug::NeedRemovingEditCtrlText(LPCTSTR txt, HWND Edit_Debug)
 		lineL++;
 	}
 	return lLine;
+}
+LONG Debug::NeedRemovingEditText(LPCTSTR txt, HWND Edit_Debug)
+{
+	if (!Edit_Debug)Edit_Debug = this->m_hwnd_edit;
+	return this->NeedRemovingEditCtrlText(txt, Edit_Debug);
 }
 
 string Debug::GetEditText(HWND hwnd)

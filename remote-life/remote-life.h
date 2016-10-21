@@ -17,8 +17,28 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/regex.hpp>  
 
+#include <boost/thread/thread.hpp>  
+#include <boost/lockfree/queue.hpp>  
+
+#include <boost/atomic.hpp>  
+
+
+
 using namespace std;
 using namespace boost;
+using namespace boost::lockfree;
+
+typedef struct QueneNode
+{
+	tm time;
+	char* data;
+	QueneNode()
+	{
+		memset(this, 0x0, sizeof(QueneNode));
+		this->time = Common::GetLocalTime();
+	}
+}qnode;
+
 
 
 int CreateCtronl(HWND hwnd, LPARAM lParam);
@@ -37,5 +57,9 @@ void MsgBox(HWND number);
 #define MAX_EDIT_LENGTH 29000
 
 //Debug dg;
+DWORD WINAPI AcceptProc(LPVOID lpParameter);
+//afx_msg void OnEditUpdate(WPARAM wParam, LPARAM lParam);//Important
+
+
 
 

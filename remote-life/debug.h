@@ -22,7 +22,10 @@ public:
 
 
 	string Debug::GetEditText(HWND hwnd=NULL);
-	LONG Debug::NeedRemovingEditCtrlText(LPCTSTR txt, HWND hWndEdit=NULL);
+	LONG Debug::NeedRemovingEditText(LPCTSTR txt, HWND hWndEdit = NULL);
+	static LONG Debug::NeedRemovingEditCtrlText(LPCTSTR txt, HWND hWndEdit);
+
+	
 	static DWORD WINAPI ThreadFuncFirst(LPVOID param);
 
 private:

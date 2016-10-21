@@ -72,8 +72,6 @@ CHAR* Common::GetLpcstrByStr(string txt)
 //----------------------------------------GetLocalTime-----------------------------------------
 tm Common::GetLocalTime()
 {
-	string txt;
-	stringstream sstemp;
 	time_t rawtime;
 	struct tm _tm;
 	time(&rawtime);

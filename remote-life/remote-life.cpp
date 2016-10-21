@@ -20,6 +20,8 @@ HWND Send_Button;
 HWND Edit_Debug;
 HWND m_hwnd;
 
+boost::lockfree::queue<QueneNode, fixed_sized<false> > QueneMsg(0);
+boost::thread_group ThreadMsg;
 
 
 //**************************************************************
@@ -134,7 +136,10 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 	return 0;
 }
 
-
+void test()
+{
+	Print("OK");
+}
 
 void btn_click()
 {	
@@ -146,18 +151,28 @@ void btn_click()
 	vector<string> lines;
 	string line = "12345\r\n\r\n12345Hello\r\nO1234512345K\r\nabcde";
 	//Print(line);
-	
-	//return;
+	/*
 	long l;
 	for (int i = 0; i < 800; i++)
 	{
 		Print("int SetScrollPos(", TRUE);
 		l = GetWindowTextLength(Edit_Debug);
 		Print(l);
-		//32767
 	}
-	//*/
-	DWORD dwThreadID = 0;
+	*/
+	ThreadMsg.create_thread(test);
+
+	//pool QueThread(3);
+
+	//QueThread.schedule(&Thread_GetQueue);
+
+	//QueThread.wait();
+	
+	//DWORD dwThreadID = 0;
+	//HANDLE hThread = CreateThread(NULL, 0, AcceptProc, (LPVOID)m_hwnd, 0, NULL);
+	//CloseHandle(hThread);
+
+
 	//HANDLE handleFirst = CreateThread(NULL, 0, ThreadFuncEdit, 0, 0, &dwThreadID);
 	
 	//CreateThread();
@@ -168,18 +183,39 @@ void btn_click()
 
 
 }
+DWORD WINAPI AcceptProc(LPVOID lpParameter)
+{
+
+	HWND hwnd = (HWND)lpParameter;
 
 
 
+	return 0;
+
+}
+void OnEditUpdate(WPARAM wParam, LPARAM lParam)
+{
+	string str = (char*)lParam;	int type = (int)wParam;
+	switch (type)
+	{
+	case 0:
+		str += " 试图建立连接.";
+		break;
+	case 1:
+		str += " 被允许连接.";
+		break;
+	}
+
+	
+}
 
 
 
 string Print(string str, bool use_date)
 {
-	return "";
-	/*
-	string newLine = str + (use_date ? ("\t" + GetLocalTimeS()) : "");
-	long lLine = NeedRemovingEditCtrlText(newLine.c_str());//检测是否需要清除部分内容
+	//return "";
+	string newLine = str + (use_date ? ("\t" + Common::GetLocalTimeS()) : "");
+	long lLine = Debug::NeedRemovingEditCtrlText(newLine.c_str(), Edit_Debug);//检测是否需要清除部分内容
 	if (lLine > 0)
 	{
 		SendMessage(Edit_Debug, EM_SETSEL, (WPARAM)0, (LPARAM)(lLine));
@@ -192,7 +228,7 @@ string Print(string str, bool use_date)
 	SendMessageA(Edit_Debug, EM_SETSEL, (WPARAM)len, (LPARAM)len);
 	SendMessageA(Edit_Debug, EM_REPLACESEL, 0, (LPARAM)txt.c_str());
 	return str;
-	*/
+	
 }
 
 string Print(int number, bool use_date)

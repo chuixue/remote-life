@@ -1,5 +1,26 @@
-﻿生成启动时间为 2016/10/21 16:38:51。
+﻿生成启动时间为 2016/10/22 0:51:08。
+     1>项目“C:\Users\liuna\Documents\Visual Studio 2013\Projects\remote-life\remote-life\remote-life.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\source\boost\boost_1_55_0 /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _SCL_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\remote-life.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\source\boost\boost_1_55_0 /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _SCL_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt debug.cpp public.cpp "remote-life.cpp" winmain.cpp
+         winmain.cpp
+         remote-life.cpp
+         public.cpp
+         debug.cpp
+         正在生成代码...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /l"0x0409" /nologo /fo"Debug\remote-life.res" remote-life.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\liuna\Documents\Visual Studio 2013\Projects\remote-life\Debug\remote-life.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\source\boost\boost_1_55_0\stage\lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\liuna\Documents\Visual Studio 2013\Projects\remote-life\Debug\remote-life.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\liuna\Documents\Visual Studio 2013\Projects\remote-life\Debug\remote-life.lib" /MACHINE:X86 "Debug\remote-life.res"
+         Debug\debug.obj
+         Debug\public.obj
+         "Debug\remote-life.obj"
+         Debug\stdafx.obj
+         Debug\winmain.obj
+         remote-life.vcxproj -> C:\Users\liuna\Documents\Visual Studio 2013\Projects\remote-life\Debug\remote-life.exe
+     1>已完成生成项目“C:\Users\liuna\Documents\Visual Studio 2013\Projects\remote-life\remote-life\remote-life.vcxproj”(Rebuild 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.30
+已用时间 00:00:14.47
