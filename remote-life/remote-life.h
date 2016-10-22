@@ -1,7 +1,7 @@
 #pragma once
 
 #include "resource.h"
-#include <string>
+#include <string.h>
 #include <sstream>
 #include <ctime>
 #include <vector>
@@ -28,14 +28,17 @@ using namespace std;
 using namespace boost;
 using namespace boost::lockfree;
 
-typedef struct QueneNode
+typedef struct QueueNode
 {
 	tm time;
 	char* data;
-	QueneNode()
+	QueueNode(string txt = "")
 	{
-		memset(this, 0x0, sizeof(QueneNode));
+		memset(this, 0x0, sizeof(QueueNode));
 		this->time = Common::GetLocalTime();
+		long len = txt.length();
+		this->data = new char[len + 1];
+		strcpy_s(this->data, len + 1, txt.c_str());
 	}
 }qnode;
 
@@ -46,7 +49,8 @@ int CreateCtronl(HWND hwnd, LPARAM lParam);
 
 void btn_click();
 
-
+void btn_click2();
+void btn_click3();
 
 string Print(string str, bool use_date = FALSE);
 string Print(int number, bool use_date = FALSE);

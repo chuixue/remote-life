@@ -30,8 +30,12 @@ public:
 
 	static CHAR* Common::GetLpcstrByStr(string txt);
 	static string GetEditText(HWND hwnd);
-	static tm GetLocalTime();
-	static string GetLocalTimeS();
+	
+	
+	static tm Common::GetLocalTime();
+	static string Common::GetLocalTimeS();
+	static string Common::GetTimeS(tm _tm);
+
 
 private:
 

@@ -19,10 +19,11 @@ HWND Update_Button;     //发送信息重置
 HWND Send_Button;
 HWND Edit_Debug;
 HWND m_hwnd;
+HWND Exit_Button;
 
-boost::lockfree::queue<QueneNode, fixed_sized<false> > QueneMsg(0);
+boost::lockfree::queue<QueueNode, fixed_sized<false> > QueueMsg(0);
 boost::thread_group ThreadMsg;
-
+boost::atomic<bool> stopPrint(false);
 
 //**************************************************************
 // 此代码模块中包含的函数的前向声明: 
@@ -67,6 +68,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		case IDB_BUTTON_LOGIN:
 			btn_click();
+			break;
+		case IDB_BUTTON_RESET:
+			btn_click2();
+			break;
+		case IDB_BUTTON_EXIT:
+			btn_click3();
 			break;
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
@@ -127,9 +134,17 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 		hWnd, (HMENU)IDB_BUTTON_RESET,//绑定按钮ID  
 		((LPCREATESTRUCT)lParam)->hInstance, NULL);
 
+	Exit_Button = CreateWindow(TEXT("button"),//必须为：button      
+		TEXT("终止"),//按钮上显示的字符      
+		WS_CHILD | WS_VISIBLE,
+		550, 75, 75, 25,            //x,y,宽,高  
+		hWnd, (HMENU)IDB_BUTTON_EXIT,//绑定按钮ID  
+		((LPCREATESTRUCT)lParam)->hInstance, NULL);
+
 	Edit_Debug = CreateWindow("edit", NULL, WS_CHILD | WS_VISIBLE | WS_BORDER | WS_VSCROLL | ES_WANTRETURN | ES_MULTILINE | ES_AUTOVSCROLL,
 		10, 120, 613, 200, hWnd, (HMENU)IDE_EDIT_DEBUG, NULL, NULL);
 
+	
 	//综合调试类
 	Debug dg = Debug();
 
@@ -138,9 +153,39 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 
 void test()
 {
-	Print("OK");
+	QueueNode node;
+	while (!stopPrint)
+	{
+		int p = QueueMsg.pop(node);
+		if (p)Print(c, true);
+	}
+	MsgBox("stop");
 }
+void PushMessage(string txt)
+{
+	QueueNode node(txt);
+	QueueMsg.push(node);
+}
+void btn_click2()
+{
+	for (int i = 0; i < 800; i++)
+	{
+		string txt = "sdjhgdhjkdjksn";
 
+		PushMessage(txt);
+		//Print("int SetScrollPos(", TRUE);
+		//l = GetWindowTextLength(Edit_Debug);
+		//Print(l);
+	}
+	Print("Hello Every");
+	MsgBox(168);
+	return;
+}
+void btn_click3()
+{
+	stopPrint = true;
+	return;
+}
 void btn_click()
 {	
 	//MsgBox(m_hwnd);
@@ -150,17 +195,12 @@ void btn_click()
 	string txt = "helsdfghjkkjre";
 	vector<string> lines;
 	string line = "12345\r\n\r\n12345Hello\r\nO1234512345K\r\nabcde";
-	//Print(line);
-	/*
-	long l;
-	for (int i = 0; i < 800; i++)
-	{
-		Print("int SetScrollPos(", TRUE);
-		l = GetWindowTextLength(Edit_Debug);
-		Print(l);
-	}
-	*/
+
+	PushMessage(txt);
+	PushMessage(txt);
+	
 	ThreadMsg.create_thread(test);
+
 
 	//pool QueThread(3);
 

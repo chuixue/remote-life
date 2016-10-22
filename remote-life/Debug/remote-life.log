@@ -1,4 +1,4 @@
-﻿生成启动时间为 2016/10/22 0:51:08。
+﻿生成启动时间为 2016/10/22 15:44:17。
      1>项目“C:\Users\liuna\Documents\Visual Studio 2013\Projects\remote-life\remote-life\remote-life.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\source\boost\boost_1_55_0 /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _SCL_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\remote-life.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
@@ -23,4 +23,4 @@
 
 生成成功。
 
-已用时间 00:00:14.47
+已用时间 00:00:30.99

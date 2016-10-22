@@ -22,7 +22,7 @@
 
 #define IDB_BUTTON_LOGIN        111  
 #define IDB_BUTTON_RESET        113  
-#define IDB_BUTTON_SEND         114  
+#define IDB_BUTTON_EXIT       114  
 #define IDB_BUTTON_UPDATE       115  
 #define IDE_EDIT_DEBUG       200  
 
