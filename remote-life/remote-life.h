@@ -17,31 +17,11 @@
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/regex.hpp>  
 
-#include <boost/thread/thread.hpp>  
-#include <boost/lockfree/queue.hpp>  
-
-#include <boost/atomic.hpp>  
 
 
 
 using namespace std;
 using namespace boost;
-using namespace boost::lockfree;
-
-typedef struct QueueNode
-{
-	tm time;
-	char* data;
-	QueueNode(string txt = "")
-	{
-		memset(this, 0x0, sizeof(QueueNode));
-		this->time = Common::GetLocalTime();
-		long len = txt.length();
-		this->data = new char[len + 1];
-		strcpy_s(this->data, len + 1, txt.c_str());
-	}
-}qnode;
-
 
 
 int CreateCtronl(HWND hwnd, LPARAM lParam);

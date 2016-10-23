@@ -21,9 +21,7 @@ HWND Edit_Debug;
 HWND m_hwnd;
 HWND Exit_Button;
 
-boost::lockfree::queue<QueueNode, fixed_sized<false> > QueueMsg(0);
-boost::thread_group ThreadMsg;
-boost::atomic<bool> stopPrint(false);
+
 
 //**************************************************************
 // 此代码模块中包含的函数的前向声明: 
@@ -151,28 +149,14 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 	return 0;
 }
 
-void test()
-{
-	QueueNode node;
-	while (!stopPrint)
-	{
-		int p = QueueMsg.pop(node);
-		if (p)Print(c, true);
-	}
-	MsgBox("stop");
-}
-void PushMessage(string txt)
-{
-	QueueNode node(txt);
-	QueueMsg.push(node);
-}
+
 void btn_click2()
 {
 	for (int i = 0; i < 800; i++)
 	{
 		string txt = "sdjhgdhjkdjksn";
 
-		PushMessage(txt);
+		//PushMessage(txt);
 		//Print("int SetScrollPos(", TRUE);
 		//l = GetWindowTextLength(Edit_Debug);
 		//Print(l);
@@ -183,7 +167,7 @@ void btn_click2()
 }
 void btn_click3()
 {
-	stopPrint = true;
+	//stopPrint = true;
 	return;
 }
 void btn_click()
@@ -196,10 +180,10 @@ void btn_click()
 	vector<string> lines;
 	string line = "12345\r\n\r\n12345Hello\r\nO1234512345K\r\nabcde";
 
-	PushMessage(txt);
-	PushMessage(txt);
+	//PushMessage(txt);
+	//PushMessage(txt);
 	
-	ThreadMsg.create_thread(test);
+	
 
 
 	//pool QueThread(3);
@@ -255,7 +239,7 @@ string Print(string str, bool use_date)
 {
 	//return "";
 	string newLine = str + (use_date ? ("\t" + Common::GetLocalTimeS()) : "");
-	long lLine = Debug::NeedRemovingEditCtrlText(newLine.c_str(), Edit_Debug);//检测是否需要清除部分内容
+	long lLine = Debug::NeedRemovingEditText(newLine.c_str(), Edit_Debug);//检测是否需要清除部分内容
 	if (lLine > 0)
 	{
 		SendMessage(Edit_Debug, EM_SETSEL, (WPARAM)0, (LPARAM)(lLine));
