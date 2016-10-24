@@ -32,8 +32,8 @@ void btn_click();
 void btn_click2();
 void btn_click3();
 
-string Print(string str, bool use_date = FALSE);
-string Print(int number, bool use_date = FALSE);
+void Print(string str, bool use_date = FALSE);
+void Print(int number, bool use_date = FALSE);
 void MsgBox(string txt);
 void MsgBox(int number);
 void MsgBox(HWND number);

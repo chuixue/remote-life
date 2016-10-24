@@ -41,6 +41,10 @@ void DBG::Print(string str, bool use_date, HWND Edit_Debug)
 }
 
 //---------------------------------------子类1-------------------------------------
+_Debug::_Debug()
+{}
+_Debug::~_Debug()
+{}
 _Debug::_Debug(HWND hwnd_win, HWND hwnd_edit)
 {
 	this->m_hwnd = hwnd_win;
@@ -52,20 +56,17 @@ void _Debug::Print(string str, bool use_date)
 }
 
 //-----------------------------------子类2------------------------------------------
-HWND Debug::m_hwnd = (HWND)0;
-HWND Debug::m_hwnd_edit = (HWND)0;
-boost::atomic<bool> Debug::stopPrint = boost::atomic<bool>(false);
-queue<QueueNode, fixed_sized<false> > Debug::QueueMsg;
 
 Debug::Debug()
 {
 	this->Init();
 }
 Debug::Debug(HWND hwnd_win, HWND hwnd_edit)
+
 {
 	Debug::m_hwnd = hwnd_win;
 	Debug::m_hwnd_edit = hwnd_edit;
-	Init();
+	this->Init();
 }
 Debug::~Debug()
 {
@@ -73,26 +74,27 @@ Debug::~Debug()
 }
 void Debug::Init()
 {
-	this->ThreadMsg.create_thread(Debug::MsgProcess);
+//	this->QueueMsg = 0;
+	//this->stopPrint = boost::atomic<bool> (false);
+	//HANDLE hThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Debug::MsgProcess, this, 0, NULL);
+	//CloseHandle(hThread);
 }
-
-
-void Debug::MsgProcess()
+void* Debug::MsgProcess(void *args)//void* args
 {
-	Debug::stopPrint = false;
+	/*
+	Debug *pThis = ((Debug *)args);
+	pThis->stopPrint = false;
 	QueueNode node;
-	while (!stopPrint)
+	while (!pThis->stopPrint)
 	{
-		int p = QueueMsg.pop(node);
-		if (p)Print(node.data, true);
-	};
+		int p = pThis->QueueMsg.pop(node);
+		if (p)DBG::Print(node.data, node.useDate, pThis->m_hwnd_edit);
+	};*/
+	return 0;
 }
-
-//static
-void Debug::Print(string txt, bool use_date, HWND Edit_Debug)
+void Debug::Print(string txt, bool use_date)
 {
-	if (!Edit_Debug) Edit_Debug = Debug::m_hwnd_edit;
-	if (!Edit_Debug)return;
-	QueueNode node(txt);
-	Debug::QueueMsg.push(node);
+	if (!this->m_hwnd_edit)return;
+	//QueueNode node(txt, use_date);
+	//this->QueueMsg.push(node);
 }

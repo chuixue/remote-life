@@ -47,32 +47,33 @@ public:
 	_Debug();
 	~_Debug();
 	_Debug(HWND hwnd_win, HWND hwnd_edit);
-
 	void _Debug::Print(string str, bool use_date = FALSE);
-	
 };
+
 
 //static
 class Debug:public DBG
 {
 public:
-	static HWND m_hwnd;
-	static HWND m_hwnd_edit;
+	HWND m_hwnd;
+	HWND m_hwnd_edit;
 	
-	static lockfree::queue<QueueNode, fixed_sized<false> > QueueMsg;
-	boost::thread_group ThreadMsg;
-	static boost::atomic<bool> stopPrint;
+	boost::lockfree::queue<QueueNode, fixed_sized<false> > QueueMsg;
+	
+	//MessageQueue QueueMsg;
+
+	boost::atomic<bool> stopPrint;
 
 public:
 	Debug();
 	Debug(HWND hwnd_win, HWND hwnd_edit);
 	~Debug();
+	
+	
 	void Debug::Init();
+	void Debug::Print(string str, bool use_date = FALSE);
 
-	static void Debug::Print(string str, bool use_date = FALSE, HWND hwnd_edit = NULL);
-
-	static void Debug::MsgProcess();
-
+	static void* Debug::MsgProcess(void *args);
 
 };
 

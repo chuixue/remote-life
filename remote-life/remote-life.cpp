@@ -159,7 +159,7 @@ void btn_click2()
 		//PushMessage(txt);
 		//Print("int SetScrollPos(", TRUE);
 		//l = GetWindowTextLength(Edit_Debug);
-		//Print(l);
+		Print(txt);
 	}
 	Print("Hello Every");
 	MsgBox(168);
@@ -182,7 +182,10 @@ void btn_click()
 
 	//PushMessage(txt);
 	//PushMessage(txt);
-	
+
+
+	boost::lockfree::queue<QueueNode, boost::lockfree::fixed_sized<true> > MessageQueue(0);
+
 	
 
 
@@ -207,6 +210,7 @@ void btn_click()
 
 
 }
+
 DWORD WINAPI AcceptProc(LPVOID lpParameter)
 {
 
@@ -235,29 +239,15 @@ void OnEditUpdate(WPARAM wParam, LPARAM lParam)
 
 
 
-string Print(string str, bool use_date)
+void Print(string str, bool use_date)
 {
-	//return "";
-	string newLine = str + (use_date ? ("\t" + Common::GetLocalTimeS()) : "");
-	long lLine = Debug::NeedRemovingEditText(newLine.c_str(), Edit_Debug);//检测是否需要清除部分内容
-	if (lLine > 0)
-	{
-		SendMessage(Edit_Debug, EM_SETSEL, (WPARAM)0, (LPARAM)(lLine));
-		SendMessage(Edit_Debug, EM_REPLACESEL, (WPARAM)FALSE, NULL);
-	}
-	string txt = newLine;
-	txt += "\r\n";
-	int len = GetWindowTextLength(Edit_Debug);
-	SetFocus(Edit_Debug); // set focus	
-	SendMessageA(Edit_Debug, EM_SETSEL, (WPARAM)len, (LPARAM)len);
-	SendMessageA(Edit_Debug, EM_REPLACESEL, 0, (LPARAM)txt.c_str());
-	return str;
-	
+	_Debug db(m_hwnd, Edit_Debug);
+	db.Print(str, use_date);
 }
 
-string Print(int number, bool use_date)
+void Print(int number, bool use_date)
 {
-	return Print(Common::str(number), use_date);
+	Print(Common::str(number), use_date);
 }
 void MsgBox(string txt)
 {
