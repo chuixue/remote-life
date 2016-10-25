@@ -1,2 +1,4 @@
-Debug/
-remote-life/Debug/
+/Debug/*.ex3
+/Debug/*.ilk
+/Debug/*.pdb
+/remote-life/Debug/
