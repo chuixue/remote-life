@@ -22,11 +22,6 @@ public:
 	static void Win::MsgBoxS(string txt);
 	static void Win::MsgBoxS(HWND hwnd, string txt);
 	
-
-	string Print(string str);
-
-
-
 private:
 
 

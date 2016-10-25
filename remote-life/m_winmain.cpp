@@ -1,4 +1,4 @@
-#include "winmain.h"
+#include "m_winmain.h"
 
 Win::Win()
 {
@@ -40,10 +40,4 @@ void Win::MsgBoxS(HWND hwnd, string txt)
 	w.MsgBox(hwnd, txt);
 }
 
-
-string Win::Print(string str)
-{
-	//SetDlgItemText((HWND)hInst, (int)Debug_Text, str.c_str());
-	return str;
-}
 

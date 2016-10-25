@@ -8,9 +8,9 @@
 
 
 #include "public.h"
-#include "winmain.h"
-#include "debug.h"
-
+#include "m_winmain.h"
+#include "c_debug.h"
+#include "c_conn.h"
 
 
 //#include <boost/algorithm/string.hpp>  

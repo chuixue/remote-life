@@ -1,4 +1,4 @@
-#include "debug.h"
+#include "c_debug.h"
 
 
 
@@ -101,8 +101,7 @@ void* Debug::MsgProcess(void *args)//void* args
 }
 void Debug::Print(string txt, bool use_date)
 {
-	if (!this->m_hwnd_edit)return;
+	if (!Debug::m_hwnd_edit)return;
 	QueueNode node(txt, use_date);
-	int a = Debug::QueueMsg.push(node);
-	int b = a;
+	Debug::QueueMsg.push(node);
 }

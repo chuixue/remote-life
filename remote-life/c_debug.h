@@ -1,3 +1,5 @@
+#pragma once
+
 #include "stdafx.h"
 #include <string>
 #include "public.h"
@@ -70,7 +72,8 @@ public:
 	
 	
 	void Debug::Init();
-	void Debug::Print(string str, bool use_date = FALSE);
+	//void Debug::Print(string str, bool use_date = FALSE);
+	static void Debug::Print(string txt, bool use_date);
 
 	static void* Debug::MsgProcess(void *args);
 

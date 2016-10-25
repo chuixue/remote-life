@@ -176,52 +176,16 @@ void btn_click()
 	//MsgBox(m_hwnd);
 	//MsgBox(Edit_Debug);
 	//MsgBox(x);
-
-	string txt = "helsdfghjkkjre";
-	vector<string> lines;
 	string line = "12345\r\n\r\n12345Hello\r\nO1234512345K\r\nabcde";
 
-	//PushMessage(txt);
-	//PushMessage(txt);
-
-	//boost::lockfree::queue<QueueNode, boost::lockfree::fixed_sized<true> > MessageQueue(0);
-
+	Conn::main();
 	//pool QueThread(3);
-
 	//QueThread.schedule(&Thread_GetQueue);
-
 	//QueThread.wait();
-	
-	//DWORD dwThreadID = 0;
 	//HANDLE hThread = CreateThread(NULL, 0, AcceptProc, (LPVOID)m_hwnd, 0, NULL);
 	//CloseHandle(hThread);
 
 }
-
-DWORD WINAPI AcceptProc(LPVOID lpParameter)
-{
-
-	HWND hwnd = (HWND)lpParameter;
-
-	return 0;
-
-}
-void OnEditUpdate(WPARAM wParam, LPARAM lParam)
-{
-	string str = (char*)lParam;	int type = (int)wParam;
-	switch (type)
-	{
-	case 0:
-		str += " 试图建立连接.";
-		break;
-	case 1:
-		str += " 被允许连接.";
-		break;
-	}
-
-	
-}
-
 
 
 void Print(string str, bool use_date)

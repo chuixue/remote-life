@@ -53,12 +53,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\source\boost\boost_1_55_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\source\include\qpid;C:\source\boost\boost_1_55_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\source\boost\boost_1_55_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\source\qpid\qpid-cpp-1.35.0\bld\src\Debug;C:\source\boost\boost_1_55_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>qpidmessagingd.lib;qpidcommond.lib;qpidtypesd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,23 +83,25 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="debug.h" />
+    <ClInclude Include="c_conn.h" />
+    <ClInclude Include="c_debug.h" />
     <ClInclude Include="public.h" />
     <ClInclude Include="remote-life.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="winmain.h" />
+    <ClInclude Include="m_winmain.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="debug.cpp" />
+    <ClCompile Include="c_conn.cpp" />
+    <ClCompile Include="c_debug.cpp" />
     <ClCompile Include="public.cpp" />
     <ClCompile Include="remote-life.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="winmain.cpp" />
+    <ClCompile Include="m_winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="remote-life.rc" />
