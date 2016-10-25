@@ -10,6 +10,7 @@
 #include <boost/atomic.hpp>  
 
 
+
 using namespace std;
 using namespace boost;
 using namespace boost::lockfree;
@@ -26,6 +27,7 @@ typedef struct QueueNode
 		this->time = Common::GetLocalTime();
 		long len = txt.length();
 		this->data = new char[len + 1];
+		this->useDate = _useDate;
 		strcpy_s(this->data, len + 1, txt.c_str());
 	}
 }qnode;
@@ -42,7 +44,6 @@ class _Debug:public DBG
 public:
 	HWND m_hwnd;
 	HWND m_hwnd_edit;
-
 public:
 	_Debug();
 	~_Debug();
@@ -56,13 +57,11 @@ class Debug:public DBG
 {
 public:
 	HWND m_hwnd;
-	HWND m_hwnd_edit;
-	
-	boost::lockfree::queue<QueueNode, fixed_sized<false> > QueueMsg;
-	
-	//MessageQueue QueueMsg;
+	static HWND m_hwnd_edit;
 
-	boost::atomic<bool> stopPrint;
+	static boost::lockfree::queue<QueueNode, fixed_sized<false> > QueueMsg;
+	//MessageQueue QueueMsg;
+	static boost::atomic<bool> stopPrint;
 
 public:
 	Debug();

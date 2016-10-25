@@ -20,7 +20,7 @@ HWND Send_Button;
 HWND Edit_Debug;
 HWND m_hwnd;
 HWND Exit_Button;
-
+Debug m_dg;
 
 
 //**************************************************************
@@ -144,22 +144,23 @@ int CreateCtronl(HWND hWnd, LPARAM lParam)
 
 	
 	//×ÛºÏµ÷ÊÔÀà
-	Debug dg = Debug();
-
+	
+	m_dg = Debug(hWnd, Edit_Debug);
 	return 0;
 }
 
 
 void btn_click2()
 {
-	for (int i = 0; i < 800; i++)
+	for (int i = 0; i < 400; i++)
 	{
 		string txt = "sdjhgdhjkdjksn";
 
 		//PushMessage(txt);
 		//Print("int SetScrollPos(", TRUE);
 		//l = GetWindowTextLength(Edit_Debug);
-		Print(txt);
+		Print(txt, true);
+		//DBG::Print(txt, true, Edit_Debug);
 	}
 	Print("Hello Every");
 	MsgBox(168);
@@ -183,11 +184,7 @@ void btn_click()
 	//PushMessage(txt);
 	//PushMessage(txt);
 
-
-	boost::lockfree::queue<QueueNode, boost::lockfree::fixed_sized<true> > MessageQueue(0);
-
-	
-
+	//boost::lockfree::queue<QueueNode, boost::lockfree::fixed_sized<true> > MessageQueue(0);
 
 	//pool QueThread(3);
 
@@ -199,24 +196,12 @@ void btn_click()
 	//HANDLE hThread = CreateThread(NULL, 0, AcceptProc, (LPVOID)m_hwnd, 0, NULL);
 	//CloseHandle(hThread);
 
-
-	//HANDLE handleFirst = CreateThread(NULL, 0, ThreadFuncEdit, 0, 0, &dwThreadID);
-	
-	//CreateThread();
-	//CloseHandle()
-	
-	//DWORD dwThreadID = 0;
-	//HANDLE handleFirst = CreateThread(NULL, 0, ThreadFuncFirst, 0, 0, &dwThreadID);
-
-
 }
 
 DWORD WINAPI AcceptProc(LPVOID lpParameter)
 {
 
 	HWND hwnd = (HWND)lpParameter;
-
-
 
 	return 0;
 
@@ -241,8 +226,7 @@ void OnEditUpdate(WPARAM wParam, LPARAM lParam)
 
 void Print(string str, bool use_date)
 {
-	_Debug db(m_hwnd, Edit_Debug);
-	db.Print(str, use_date);
+	m_dg.Print(str, use_date);
 }
 
 void Print(int number, bool use_date)
